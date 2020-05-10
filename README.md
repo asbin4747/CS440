@@ -1,2 +1,22 @@
 # CS440
-Database Project
+# Project Description
+- For the design of the database I only focused on the release part of the feature. Initially, we have a software table which is a brief table which consists of what kind of software a certain company has along with its description.
+The way I designed my database was a customer or a development team for the company raises certain issues or bugs. The product manager is responsible to collect these issues and then create a ticket. The ticket table consists of description, what category does the issue fall under, its reported date, and its source of origin. The product manager then assigns the ticket with a priority status which is an int value. The highest priority is determined by lowest int value. For example, 2 has higher priority than 5. Then these ticket numbers are sorted by priority and listed as userstory and bugs. We have a separate productlog table which keeps tracks of the userstory and bugs. The userstory table consists of child tasks which are again separated into another table. After the userstory and bugs are solved out we include them in the featurelist table. These feature list table consist of items from the productlog table that we want to include in our enhancement table. We then include these features as enhancement in the enhancement table which includes all the features that are to be included in the upcoming release. Finally the releaseversion table consists of the enhancement features to be released, when the release was started and the date it is released.
+
+# Table description
+- Created a table that would display the type of software a certain company has. The software table would include the productID as to reference the unique product of the company.
+- Product table that would reference what kind of product a certain software is.
+- Version table to keep track of a certain software product. The date format for all the tables is as '2020-05-02' (YYYY-MM-DD).
+- Created an activity table whose value are development and support. The activity table indicates whether an enhancement is for new feature or support to existing feature. Identity indicates that when we add a value to the table the id value keeps increasing automatically.
+- Origin tables refers to the source of origin for a certain issue. Here the values would be company or customer who reported a certain issue. Customer may have value as Client1, Client2 and so on. The identity property automatically sets the id number for the user and unique constraint in reporter does now allow for duplicate reporter.
+- Created a ticket table to create issues. Here issues can be a new feature to be implemented or a bug reported by the development team or the customer. The product manager creates a ticket for this issues and then gives them a priority. I decided to include priority as a integer value because higher the integer value more the priority. Issuetype indicates whether the issue is bug, or userStory, or a new Feature to be implemented and I decided to keep its value as a varchar with character limit of 10 words.
+- Created a workflow for state which indicates whether the certain issue is active,open or closed.
+- Assignee table to keep the store asignee information. We might have long names so I decided to keep the varchar a little more.
+- Created a UserStory table to include all the userStory items in the productlog. AssigneeID references to the assignee table where it has name and information of the assignee
+- Bugs and UserStory have a one to many relation.
+- Created a ProductLog table to keep track of all the UserStory and bugs. This table is obtained by joining tables UserStory and bugs.
+- Feature table to keep track of features for a certain product that needs to be released for a specific version. Here productLogID retrieves the items to be retrieved from the productLogTable that will be included as a feature.
+- VersionFeature table to link which version has which feature. One version has many features.
+- Created a EnhancementRelease list table to store which features to release in a certain version.We want to publish the items from the productLog table as a feature. For example we want only certain userstory, tasks and bugs to be published in a certain release. Also we want to define the activity is for new development or support for existing version.
+- Created a releaseVersion table for release purpose. For the release version I choose varchar because it is easier to insert value as a character rather than int.
+
