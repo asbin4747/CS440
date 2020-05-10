@@ -1,38 +1,25 @@
 
+CREATE DATABASE csun13
 
 USE csun13
 
-DROP TABLE IF EXISTS dbo.Activity
+DROP TABLE IF EXISTS dbo.UserStoryUpdate
+DROP TABLE IF EXISTS dbo.UserStory
+DROP TABLE IF EXISTS dbo.TICKET
+DROP TABLE IF EXISTS dbo.WORKFLOW
 DROP TABLE IF EXISTS dbo.Assignee
+DROP TABLE IF EXISTS dbo.Origin
+DROP TABLE IF EXISTS dbo.Activity
 DROP TABLE IF EXISTS dbo.Bug
 DROP TABLE IF EXISTS dbo.bugUpdate
 DROP TABLE IF EXISTS dbo.EnhancementReleaseList
 DROP TABLE IF EXISTS dbo.FeatureTable
-DROP TABLE IF EXISTS dbo.Origin
 DROP TABLE IF EXISTS dbo.Product
 DROP TABLE IF EXISTS dbo.ProductLog
 DROP TABLE IF EXISTS dbo.ReleaseVersion
 DROP TABLE IF EXISTS dbo.Task
-DROP TABLE IF EXISTS dbo.TICKET
-DROP TABLE IF EXISTS dbo.UserStory
-DROP TABLE IF EXISTS dbo.UserStoryUpdate
 DROP TABLE IF EXISTS dbo.VersionFeature
 DROP TABLE IF EXISTS dbo.VersionTable
-DROP TABLE IF EXISTS dbo.WORKFLOW
-DROP TABLE IF EXISTS dbo.Software
-
-
-
-/*Create a table that would display the type of software a certain company has. The software table would
-include the productID as to reference the unique product of the company*/
-CREATE TABLE Software(
-    productID int NOT NULL CONSTRAINT FK_productsID FOREIGN KEY (productID) REFERENCES Product(productID),
-    companyName varchar(255),
-    versionID int CONSTRAINT FK_softwareVersionID FOREIGN KEY (versionID) REFERENCES VersionTable(versionID),
-    softwareName varchar(255),
-    softwareDescription text,
-    PRIMARY KEY(productID,softwareName,companyName)
-    )
 
 /*Product table that would reference what kind of product a certain software is*/
 CREATE TABLE Product(
@@ -85,9 +72,6 @@ CREATE TABLE TICKET(
 	)
 
 	
-Alter table Ticket
-Add CONSTRAINT FK_reportedByID FOREIGN KEY (reportedByID) REFERENCES Origin(reportedByID);
-
 
 /*Create a workflow for state which indicates whether the certain issue is active,open or closed*/
 CREATE TABLE WORKFLOW(
@@ -197,6 +181,17 @@ CREATE TABLE ReleaseVersion(
     )
 
 
+--/*Create a table that would display the type of software a certain company has. The software table would
+--include the productID as to reference the unique product of the company*/
+--CREATE TABLE Software(
+--    productID int NOT NULL CONSTRAINT FK_productsID FOREIGN KEY (productID) REFERENCES Product(productID),
+--    companyName varchar(255),
+--    versionID int CONSTRAINT FK_softwareVersionID FOREIGN KEY (versionID) REFERENCES VersionTable(versionID),
+--    softwareName varchar(255),
+--    softwareDescription text,
+--    PRIMARY KEY(productID,softwareName,companyName)
+--    )
+
 
 /*Insert into Assignee table*/
 INSERT INTO Assignee values (1, 'Robert','robert@mask-m.net'),(2, 'HushHush', 'developer@mask-met.net'),(3,'Virginia','virginia@mask-me.net'),(4, 'john cxxne','cxxne1111@outlook.com')
@@ -260,6 +255,8 @@ where b.assigneeID =1
 SELECT bugID,ticketID,assigneeID,notificationDate FROM Bug
     UNION
     SELECT userStoryID,ticketID,assigneeID,notificationDate FROM UserStory
+
+
 
 
 
